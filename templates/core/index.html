@@ -1,0 +1,33 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block head_title %}Banking System{% endblock %}
+
+<!-- Add Bootstrap 5 CSS link -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+{% block content %}
+<div class="container mx-auto flex flex-col md:flex-row items-center my-12 md:my-24">
+    <div class="flex flex-col w-full lg:w-1/2 justify-center items-start pt-12 pb-24 px-6 bg-white rounded-2xl bg-opacity-70 animate__animated animate__fadeInLeft">
+        <button class="btn btn-primary mb-3" type="button" data-toggle="collapse" data-target="#bankingContent" aria-expanded="false" aria-controls="bankingContent">
+        </button>
+        <div class="collapse" id="bankingContent">
+            <div class="card card-body">
+                <h1 class="font-bold text-4xl my-4">Simple Banking System</h1>
+                <p class="leading-normal mb-4">
+                    Welcome to our banking system, where simplicity meets security. We understand that your banking needs are centered around two key actions: withdrawing and depositing funds. With our user-friendly platform, you can easily initiate withdrawals and deposits with just a few clicks or taps. But convenience doesn't come at the expense of security. Our robust security measures, including advanced encryption and multi-factor authentication, ensure that your transactions are safeguarded against unauthorized access and fraud. Rest assured, your financial data is protected every step of the way. Experience the peace of mind that comes with banking with us, where simplicity, security, and trust are our top priorities.
+                </p>
+            </div>
+        </div>
+        <div class="flex justify-end w-full">
+            <!-- Your registration button goes here -->
+            <a href="{% url 'accounts:user_registration' %}" class="btn btn-primary rounded-none hover:bg-white hover:text-blue-900 hover:border-blue-900 shadow hover:shadow-lg py-2 px-4 border border-gray-900 hover:border-transparent animate__animated animate__zoomIn">Register</a>
+        </div>
+    </div>
+    <div class="w-full lg:w-1/2 lg:py-6 text-center">
+        <!-- This div is empty, you can add content here if needed -->
+    </div>
+</div>
+{% endblock %}
+
+<!-- Add Bootstrap 5 JavaScript link -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

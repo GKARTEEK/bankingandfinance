@@ -1,0 +1,199 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block head_title %}Banking System{% endblock %}
+{% block content %}
+{% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2" role="alert">
+            <p class="font-bold">Error!</p>
+            <p class="block sm:inline">{{ error }}</p>
+        </div>
+    {% endfor %}
+{% endif %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>OJP login form</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 99%;
+            z-index: 1000;
+            background-color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #000;
+            transition: background-color 0.3s ease;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links li {
+            margin-right: 20px;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: black;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links li a:hover {
+            color:black;
+        }
+
+        .background {
+            position: relative;
+            background-image: url('https://t3.ftcdn.net/jpg/02/10/87/80/240_F_210878007_vIRqeFVZAeODdJ4dAbw4J8O6kLKzxUfi.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .left-info {
+            flex: 1;
+            color: #fff;
+            padding: 0 20px;
+        }
+
+        .left-info h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .left-info p {
+            font-size: 18px;
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+            margin-top: 100px;
+        }
+
+        .login-card,
+        .signup-card {
+            width: 300px; /* Adjusted width */
+            background-color: #000; /* Changed background color to black */
+            color: #fff; /* Changed text color to white */
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            animation: slideInLeft 1s ease forwards;
+        }
+
+        .login-form label,
+        .signup-form label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .login-form input[type="text"],
+        .login-form input[type="email"], /* Added email input */
+        .login-form input[type="password"],
+        .signup-form input[type="text"],
+        .signup-form input[type="email"],
+        .signup-form input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .login-form .password-container,
+        .signup-form .password-container {
+            position: relative;
+        }
+
+        .login-form .password-container i,
+        .signup-form .password-container i {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #ccc;
+        }
+
+        .signup-link {
+            color: #ffffff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid grid-cols-3 gap-4">
+        <div></div>
+        <div class="py-2 px-3 rounded-xl bg-white mt-12 animate__animated animate__slideInLeft">
+            <h1 class="font-mono font-bold text-3xl text-center pb-5 shadow-md">Sign In</h1>
+            <hr>
+            <div class="w-full mt-10">
+                <form method="post" class="shadow-md border border-gray-200 rounded px-8 pt-6 pb-8 mb-4 animate__animated animate__zoomInOut">
+                    {% csrf_token %}
+                    {% for hidden_field in form.hidden_fields %}
+                        {{ hidden_field.errors }}
+                        {{ hidden_field }}
+                    {% endfor %}
+                    {% for field in form.visible_fields %}
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="{{ field.id_for_label }}">
+                                {{ field.label }}
+                            </label>
+                            <input class="shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="{{ field.name }}" id="{{ field.id_for_label }}" type="{{ field.widget_type }}">
+                            {% if field.errors %}
+                                {% for error in field.errors %}
+                                    <p class="text-red-600 text-sm italic pb-2">{{ error }}</p>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <div class="flex items-center justify-center w-full">
+                        <button class="bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Sign In</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}
